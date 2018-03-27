@@ -1,5 +1,6 @@
 package org.ciardullo;
 
+import org.ciardullo.config.AppConfig;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
