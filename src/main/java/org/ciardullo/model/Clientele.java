@@ -1,18 +1,34 @@
 package org.ciardullo.model;
 
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Date;
 
 public class Clientele {
     private int id;
-    private String firstname;
-    private String lastname;
-    private String contactname;
+    @JsonProperty("firstname")
+    private String firstName;
+    @JsonProperty("lastname")
+    private String lastName;
+    @JsonProperty("contactname")
+    private String contactName;
     private String city;
     private String state;
     private String timezone;
-    private LocalDateTime firstcontact;
-    private LocalDateTime firstresponse;
+    @JsonProperty("firstcontact")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+    private Date firstContact;
+    @JsonProperty("firstresponse")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+    private Date firstResponse;
     private boolean solicited;
+    private int numappts;
+    @JsonProperty("lastapptdate")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+    private Date lastApptDate;
+    @JsonProperty("lastapptyearmonth")
+    private String lastApptYearMonth;
 
     public Clientele() {
     }
@@ -25,28 +41,28 @@ public class Clientele {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getContactname() {
-        return contactname;
+    public String getContactName() {
+        return contactName;
     }
 
-    public void setContactname(String contactname) {
-        this.contactname = contactname;
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
     }
 
     public String getCity() {
@@ -73,20 +89,20 @@ public class Clientele {
         this.timezone = timezone;
     }
 
-    public LocalDateTime getFirstcontact() {
-        return firstcontact;
+    public Date getFirstContact() {
+        return firstContact;
     }
 
-    public void setFirstcontact(LocalDateTime firstcontact) {
-        this.firstcontact = firstcontact;
+    public void setFirstContact(Date firstContact) {
+        this.firstContact = firstContact;
     }
 
-    public LocalDateTime getFirstresponse() {
-        return firstresponse;
+    public Date getFirstResponse() {
+        return firstResponse;
     }
 
-    public void setFirstresponse(LocalDateTime firstresponse) {
-        this.firstresponse = firstresponse;
+    public void setFirstResponse(Date firstResponse) {
+        this.firstResponse = firstResponse;
     }
 
     public boolean isSolicited() {
@@ -97,19 +113,44 @@ public class Clientele {
         this.solicited = solicited;
     }
 
+    public int getNumappts() {
+        return numappts;
+    }
+
+    public void setNumappts(int numappts) {
+        this.numappts = numappts;
+    }
+
+    public Date getLastApptDate() {
+        return lastApptDate;
+    }
+
+    public void setLastApptDate(Date lastApptDate) {
+        this.lastApptDate = lastApptDate;
+    }
+
+    public String getLastApptYearMonth() {
+        return lastApptYearMonth;
+    }
+
+    public void setLastApptYearMonth(String lastApptYearMonth) {
+        this.lastApptYearMonth = lastApptYearMonth;
+    }
+
     @Override
     public String toString() {
         return "Clientele{" +
                 "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", contactname='" + contactname + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", contactName='" + contactName + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
                 ", timezone='" + timezone + '\'' +
-                ", firstcontact=" + firstcontact +
-                ", firstresponse=" + firstresponse +
+                ", firstContact=" + firstContact +
+                ", firstResponse=" + firstResponse +
                 ", solicited=" + solicited +
+                ", numappts=" + numappts +
                 '}';
     }
 }

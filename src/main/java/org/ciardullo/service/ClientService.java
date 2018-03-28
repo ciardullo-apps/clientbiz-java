@@ -1,6 +1,7 @@
 package org.ciardullo.service;
 
 import org.ciardullo.database.ClientMapper;
+import org.ciardullo.model.Appointment;
 import org.ciardullo.model.Clientele;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,5 +19,9 @@ public class ClientService {
 
     public Clientele getClient(int id) {
         return clientMapper.getClient(id);
+    }
+
+    public List<Appointment> getAppointmentsByClient(int clientId) {
+        return clientMapper.getAppointments(clientId);
     }
 }

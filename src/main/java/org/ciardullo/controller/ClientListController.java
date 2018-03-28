@@ -1,13 +1,15 @@
-package org.ciardullo;
+package org.ciardullo.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.ciardullo.model.Appointment;
 import org.ciardullo.model.Clientele;
 import org.ciardullo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,9 +28,6 @@ public class ClientListController {
     @ResponseBody
     public String client() {
         List<Clientele> clients = clientService.getClients();
-        for (Clientele client : clients) {
-            System.out.println(client);
-        }
 
         String s = "";
         try {
@@ -49,6 +48,36 @@ public class ClientListController {
 
         model.addAttribute("clients", clients);
         return "greeting";
+    }
+
+    @GetMapping(value = "/client/{id}", produces = "application/json")
+    @ResponseBody
+    public String client(@PathVariable("id") int id) {
+        Clientele client = clientService.getClient(id);
+
+        String s = "";
+        try {
+            s = objectMapper.writeValueAsString(client);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
+    @GetMapping(value = "/appointments/{id}", produces = "application/json")
+    @ResponseBody
+    public String appointments(@PathVariable("id") int id) {
+        List<Appointment> appointments = clientService.getAppointmentsByClient(id);
+
+        String s = "";
+        try {
+            s = objectMapper.writeValueAsString(appointments);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return s;
     }
 
 }
