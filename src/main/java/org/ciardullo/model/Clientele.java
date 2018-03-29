@@ -7,26 +7,38 @@ import java.util.Date;
 
 public class Clientele {
     private int id;
+
     @JsonProperty("firstname")
     private String firstName;
+
     @JsonProperty("lastname")
     private String lastName;
+
     @JsonProperty("contactname")
     private String contactName;
+
     private String city;
+
     private String state;
+
     private String timezone;
+
     @JsonProperty("firstcontact")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private Date firstContact;
+
     @JsonProperty("firstresponse")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private Date firstResponse;
+
     private boolean solicited;
+
     private int numappts;
+
     @JsonProperty("lastapptdate")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private Date lastApptDate;
+
     @JsonProperty("lastapptyearmonth")
     private String lastApptYearMonth;
 
