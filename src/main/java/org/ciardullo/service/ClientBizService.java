@@ -1,5 +1,6 @@
 package org.ciardullo.service;
 
+import org.ciardullo.data.mapper.AppointmentMapper;
 import org.ciardullo.data.mapper.ClienteleMapper;
 import org.ciardullo.data.mapper.TopicMapper;
 import org.ciardullo.model.Appointment;
@@ -18,6 +19,9 @@ public class ClientBizService {
     @Autowired
     TopicMapper topicMapper;
 
+    @Autowired
+    AppointmentMapper appointmentMapper;
+
     public List<Clientele> getClients() {
         return clienteleMapper.getClients();
     }
@@ -32,5 +36,9 @@ public class ClientBizService {
 
     public List<Topic> getTopics() {
         return topicMapper.selectTopics();
+    }
+
+    public List<Appointment> getAllReceivables() {
+        return appointmentMapper.findAllReceivables();
     }
 }

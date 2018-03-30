@@ -24,6 +24,9 @@ public class Appointment {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date paid;
 
+    private Clientele clientele;
+    private Topic topic;
+
     public Appointment() {
     }
 
@@ -91,6 +94,22 @@ public class Appointment {
         this.paid = paid;
     }
 
+    public Clientele getClientele() {
+        return clientele;
+    }
+
+    public void setClientele(Clientele clientele) {
+        this.clientele = clientele;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
+
     @Override
     public String toString() {
         return "Appointment{" +
@@ -102,6 +121,8 @@ public class Appointment {
                 ", rate=" + rate +
                 ", billingPct=" + billingPct +
                 ", paid=" + paid +
+                ", clientele=" + clientele +
+                ", topic=" + topic +
                 '}';
     }
 }

@@ -37,4 +37,18 @@ class ClientBizServiceTest extends Specification {
             1                 | false
             Integer.MAX_VALUE | true
     }
+
+    def "#getTopics returns a list containing at least one topic from the topic table"() {
+        when:
+            def topics = clientService.getTopics()
+        then:
+            topics.size() > 0
+    }
+
+    def "#getAllReceivables returns a list containing at least one appointment"() {
+        when:
+            def appointments = clientService.getAllReceivables()
+        then:
+            appointments.size() > 0
+    }
 }

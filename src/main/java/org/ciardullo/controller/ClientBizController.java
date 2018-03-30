@@ -95,4 +95,20 @@ public class ClientBizController {
         return s;
     }
 
+
+    @GetMapping(value = "/receivables", produces = "application/json")
+    @ResponseBody
+    public String receivables() {
+        List<Appointment> appointments = clientService.getAllReceivables();
+
+        String s = "";
+        try {
+            s = objectMapper.writeValueAsString(appointments);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
 }
