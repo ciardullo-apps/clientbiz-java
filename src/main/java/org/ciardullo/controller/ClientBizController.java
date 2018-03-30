@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ciardullo.model.Appointment;
 import org.ciardullo.model.Clientele;
 import org.ciardullo.model.Topic;
+import org.ciardullo.model.View;
 import org.ciardullo.service.ClientBizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -103,7 +104,9 @@ public class ClientBizController {
 
         String s = "";
         try {
-            s = objectMapper.writeValueAsString(appointments);
+            s = objectMapper
+                    .writerWithView(View.Receivables.class)
+                    .writeValueAsString(appointments);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

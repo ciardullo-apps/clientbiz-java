@@ -1,7 +1,9 @@
 package org.ciardullo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,7 +26,10 @@ public class Appointment {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date paid;
 
+    @JsonIgnore
     private Clientele clientele;
+
+    @JsonIgnore
     private Topic topic;
 
     public Appointment() {
@@ -108,6 +113,21 @@ public class Appointment {
 
     public void setTopic(Topic topic) {
         this.topic = topic;
+    }
+
+    @JsonView(View.Receivables.class)
+    public String getFirstname() {
+        return this.clientele.getFirstName();
+    }
+
+    @JsonView(View.Receivables.class)
+    public String getLastname() {
+        return this.clientele.getLastName();
+    }
+
+    @JsonView(View.Receivables.class)
+    public String getTopicname() {
+        return this.topic.getName();
     }
 
     @Override
