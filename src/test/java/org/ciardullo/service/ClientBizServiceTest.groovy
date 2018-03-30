@@ -9,9 +9,9 @@ import spock.lang.Specification
 
 @WebAppConfiguration
 @ContextConfiguration(classes=[AppConfig, DbConfig])
-class ClientServiceTest extends Specification {
+class ClientBizServiceTest extends Specification {
     @Autowired
-    ClientService clientService;
+    ClientBizService clientService;
 
     def "#getClients returns a list containing at least one client from the clientele table"() {
         when:

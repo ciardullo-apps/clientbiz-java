@@ -5,13 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ciardullo.model.Appointment;
 import org.ciardullo.model.Clientele;
 import org.ciardullo.model.Topic;
-import org.ciardullo.service.ClientService;
+import org.ciardullo.service.ClientBizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -20,7 +19,7 @@ import java.util.List;
 public class ClientBizController {
 
     @Autowired
-    ClientService clientService;
+    ClientBizService clientService;
 
     @Autowired
     ObjectMapper objectMapper;
