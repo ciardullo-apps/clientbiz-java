@@ -1,4 +1,4 @@
-package org.ciardullo.data;
+package org.ciardullo.data.mapper;
 
 import org.apache.ibatis.annotations.Select;
 import org.ciardullo.model.Appointment;

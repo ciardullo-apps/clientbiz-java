@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ciardullo.model.Appointment;
 import org.ciardullo.model.Clientele;
+import org.ciardullo.model.Topic;
 import org.ciardullo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-public class ClientListController {
+public class ClientBizController {
 
     @Autowired
     ClientService clientService;
@@ -73,6 +74,21 @@ public class ClientListController {
         String s = "";
         try {
             s = objectMapper.writeValueAsString(appointments);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
+    @GetMapping(value = "/topics", produces = "application/json")
+    @ResponseBody
+    public String topics() {
+        List<Topic> topics = clientService.getTopics();
+
+        String s = "";
+        try {
+            s = objectMapper.writeValueAsString(topics);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

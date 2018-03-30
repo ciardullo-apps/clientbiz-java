@@ -1,9 +1,10 @@
 package org.ciardullo.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.ciardullo.data.ClienteleMapper;
+import org.ciardullo.data.mapper.ClienteleMapper;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
+@MapperScan("org.ciardullo.data.mapper")
 public class DbConfig {
     @Bean
     public DataSource dataSource() {
@@ -35,13 +37,6 @@ public class DbConfig {
         SqlSessionFactoryBean ss = new SqlSessionFactoryBean();
         ss.setDataSource(dataSource());
         return ss.getObject();
-    }
-
-    @Bean
-    public MapperFactoryBean<ClienteleMapper> clienteleMapper() throws Exception {
-        MapperFactoryBean<ClienteleMapper> mfb = new MapperFactoryBean<>(ClienteleMapper.class);
-        mfb.setSqlSessionFactory(sqlSessionFactory());
-        return mfb;
     }
 
     @Bean
