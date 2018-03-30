@@ -25,6 +25,4 @@ public interface ClienteleMapper {
     @Select("SELECT * from clientview")
     List<Clientele> getClients();
 
-    @Select("SELECT * from appointment where client_id = #{clientId} order by starttime")
-    List<Appointment> getAppointments(int clientId);
 }

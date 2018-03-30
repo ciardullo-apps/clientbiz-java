@@ -30,4 +30,20 @@ public interface AppointmentMapper {
 
     @Select("SELECT * FROM topic WHERE id = #{topicId}")
     Topic findTopicByAppointment(int topicId);
+
+    @Select("SELECT * FROM appointment WHERE client_id = #{clientId} ORDER BY starttime")
+    @Results(value = {
+            @Result(property = "clientele",
+                    column = "client_id",
+                    javaType = Clientele.class,
+                    one = @One(select = "findClienteleByAppointment",
+                            fetchType = FetchType.DEFAULT)),
+            @Result(property = "topic",
+                    column = "topic_id",
+                    javaType = Topic.class,
+                    one = @One(select = "findTopicByAppointment",
+                            fetchType = FetchType.DEFAULT))
+
+    })
+    List<Appointment> findAppointmentsByClient(int clientId);
 }

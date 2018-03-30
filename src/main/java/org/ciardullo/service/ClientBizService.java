@@ -31,7 +31,7 @@ public class ClientBizService {
     }
 
     public List<Appointment> getAppointmentsByClient(int clientId) {
-        return clienteleMapper.getAppointments(clientId);
+        return appointmentMapper.findAppointmentsByClient(clientId);
     }
 
     public List<Topic> getTopics() {
