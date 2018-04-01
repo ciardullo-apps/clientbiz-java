@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Clientele {
     private int id;
@@ -164,5 +165,28 @@ public class Clientele {
                 ", solicited=" + solicited +
                 ", numappts=" + numappts +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Clientele clientele = (Clientele) o;
+        return id == clientele.id &&
+                solicited == clientele.solicited &&
+                Objects.equals(firstName, clientele.firstName) &&
+                Objects.equals(lastName, clientele.lastName) &&
+                Objects.equals(contactName, clientele.contactName) &&
+                Objects.equals(city, clientele.city) &&
+                Objects.equals(state, clientele.state) &&
+                Objects.equals(timezone, clientele.timezone) &&
+                Objects.equals(firstContact, clientele.firstContact) &&
+                Objects.equals(firstResponse, clientele.firstResponse);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, firstName, lastName, contactName, city, state, timezone, firstContact, firstResponse, solicited, numappts, lastApptDate, lastApptYearMonth);
     }
 }
