@@ -59,7 +59,7 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <targetPath>templates</targetPath>
+                <targetPath>resources</targetPath>
             </resource>
         </resources>
         <testSourceDirectory>src/test/java</testSourceDirectory>

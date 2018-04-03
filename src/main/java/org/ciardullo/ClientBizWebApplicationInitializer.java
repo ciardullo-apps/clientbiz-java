@@ -26,6 +26,7 @@ public class ClientBizWebApplicationInitializer implements WebApplicationInitial
         DispatcherServlet servlet = new DispatcherServlet(ac);
         ServletRegistration.Dynamic registration = servletCxt.addServlet("app", servlet);
         registration.setLoadOnStartup(1);
-        registration.addMapping("/app/*");
+//        registration.addMapping("/app/*");
+        registration.addMapping("/");
     }
 }

@@ -64,6 +64,15 @@ public class ClientBizController {
         return s;
     }
 
+    @GetMapping(value = "/client/{id}.html")
+    public String client(Model model, @PathVariable("id") int id) {
+        Clientele client = clientService.getClient(id);
+
+        model.addAttribute("client", client);
+
+        return "index";
+    }
+
     @GetMapping(value = "/appointments/{id}", produces = "application/json")
     @ResponseBody
     public String appointments(@PathVariable("id") int id) {
@@ -115,6 +124,7 @@ public class ClientBizController {
     @PostMapping(path = "/saveClient", consumes = "application/json", produces = "application/json")
     @ResponseBody
     public String saveClient(@RequestBody Clientele clientele) {
+        System.out.println(clientele.getFirstName());
         return "";
     }
 }
