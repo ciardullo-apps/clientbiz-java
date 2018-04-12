@@ -2,6 +2,7 @@ package org.ciardullo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.Objects;
@@ -102,6 +103,7 @@ public class Clientele {
         this.timezone = timezone;
     }
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     public Date getFirstContact() {
         return firstContact;
     }
@@ -110,6 +112,7 @@ public class Clientele {
         this.firstContact = firstContact;
     }
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     public Date getFirstResponse() {
         return firstResponse;
     }
@@ -134,6 +137,7 @@ public class Clientele {
         this.numappts = numappts;
     }
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     public Date getLastApptDate() {
         return lastApptDate;
     }

@@ -15,7 +15,7 @@
     <!-- Custom styles for this template -->
     <link th:href="@{/css/clientbiz.css}" rel="stylesheet">
 
-    <script th:src="@{/js/core.js}"></script>
+<!--    <script th:src="@{/js/core.js}"></script> -->
 
 </head>
 
@@ -107,9 +107,8 @@
                 </ul>
             </div>
         </nav>
-
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div th:replace="edit-client.html :: edit-client">
+            <div th:include="edit-client :: edit-client">
             </div>
 
             <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
@@ -123,13 +122,14 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="js/bootstrap.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" />
+
 
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
       feather.replace()
-    </script>
+</script>
 
 <!-- Graphs -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>

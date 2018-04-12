@@ -67,8 +67,10 @@ public class ClientBizController {
     @GetMapping(value = "/client/{id}.html")
     public String client(Model model, @PathVariable("id") int id) {
         Clientele client = clientService.getClient(id);
+        List<Topic> topics = clientService.getTopics();
 
         model.addAttribute("client", client);
+        model.addAttribute("topics", topics);
 
         return "index";
     }
