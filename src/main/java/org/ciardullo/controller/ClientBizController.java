@@ -124,9 +124,8 @@ public class ClientBizController {
     }
 
     @PostMapping(path = "/saveClient", consumes = "application/json", produces = "application/json")
-    @ResponseBody
-    public String saveClient(@RequestBody Clientele clientele) {
-        System.out.println(clientele.getFirstName());
-        return "";
+    public String saveClient(@RequestBody Clientele client) {
+        System.out.println(client);
+        return "greeting";
     }
 }

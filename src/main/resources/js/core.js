@@ -1,38 +1,76 @@
-// angular code runs on the browser
-var clientBizApp = angular.module('clientBizApp', []);
-
 var sortOrders =  [ 'asc', 'desc' ];
 var sortOrderIndex = 1;
 
-clientBizApp.config(function($routeProvider) {
-  $routeProvider
-    .when('/client', {
-      templateUrl: 'client-list.html',
-      controller: 'clientListController'
-    })
-    .when('/appointments/:clientId', {
-      templateUrl: 'appointment-list.html',
-      controller: 'appointmentListController'
-    })
-    .when('/addAppointment/:clientId', {
-      templateUrl: 'create-appointment.html',
-      controller: 'createAppointmentController'
-    })
-    .when('/receivables', {
-      templateUrl: 'receivables.html',
-      controller: 'receivablesController'
-    })
-    .when('/client/:clientId', {
-      templateUrl: 'edit-client.html',
-      controller: 'editClientController'
-    })
-    .when('/addClient', {
-      templateUrl: 'edit-client.html',
-      controller: 'editClientController'
-    })
-;
-});
+function saveClient() {
+//var formData = $('#edit-client').serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
+var formData = {
+    "firstname": $("#firstName").val(),
+    "lastname": $("#lastName").val(),
+    "topic_id": $("#topic_id").val(),
+    "contactname": $("#contactName").val(),
+    "city": $("#city").val(),
+    "state": $("#state").val(),
+    "timezone": $("#timezone").val(),
+    "firstcontact": $("#firstContact").val(),
+    "firstresponse": $("#firstResponse").val(),
+    "solicited": $("#solicited").val()
+}
+console.log(JSON.stringify(formData));
 
+    $.ajax({
+        method: 'POST',
+        url: '/clientbiz-java/saveClient',
+        data: JSON.stringify(formData), // pass fields as strings
+        contentType: 'application/json',
+        processData: false
+      })
+      .done(function(data) {
+        console.log(data);
+      });
+
+}
+/*
+window.addEventListener("load", function () {
+  function saveClient() {
+    var XHR = new XMLHttpRequest();
+
+    // Bind the FormData object and the form element
+    var FD = new FormData(form);
+
+//    var FD = {"firstName":"John", "lastName":"Doe"};
+
+    // Define what happens on successful data submission
+    XHR.addEventListener("load", function(event) {
+      alert(event.target.responseText);
+    });
+
+    // Define what happens in case of error
+    XHR.addEventListener("error", function(event) {
+      alert('Oops! Something went wrong.');
+    });
+
+    // Set up our request
+    XHR.open("POST", document.getElementById("edit-client").action );
+
+    // Add the required HTTP header for form data POST requests
+    XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    // The data sent is what the user provided in the form
+    XHR.send(FD);
+  }
+
+  // Access the form element...
+  var form = document.getElementById("edit-client");
+
+  // ...and take over its submit event.
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    saveClient();
+  });
+});
+*/
 function clientListController($scope, $http) {
   $scope.formData = {};
   $http.get('/client')
@@ -240,19 +278,5 @@ function editClientController($scope, $http, $routeParams) {
       'solicited': "1"
     };
   }
-
-  $scope.saveClient = function() {
-    $http({
-        method: 'POST',
-        url: '/saveClient',
-        data: $.param($scope.formData),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      })
-      .success(function(data) {
-        console.log(data);
-      });
-
-  }
 }
+

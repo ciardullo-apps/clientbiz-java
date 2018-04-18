@@ -116,17 +116,29 @@ public class Appointment {
     }
 
     @JsonView(View.Receivables.class)
-    public String getFirstname() {
+    public String getFirstName() {
+        if(clientele == null) {
+            return null;
+        }
+
         return this.clientele.getFirstName();
     }
 
     @JsonView(View.Receivables.class)
-    public String getLastname() {
+    public String getLastName() {
+        if(clientele == null) {
+            return null;
+        }
+
         return this.clientele.getLastName();
     }
 
     @JsonView(View.Receivables.class)
-    public String getTopicname() {
+    public String getTopicName() {
+        if(topic == null) {
+            return null;
+        }
+
         return this.topic.getName();
     }
 
