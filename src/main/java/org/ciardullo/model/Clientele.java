@@ -45,7 +45,7 @@ public class Clientele {
     @JsonProperty("lastapptyearmonth")
     private String lastApptYearMonth;
 
-    private List<Topic> topicList;
+    private int topicId;
 
     public Clientele() {
     }
@@ -157,12 +157,12 @@ public class Clientele {
         this.lastApptYearMonth = lastApptYearMonth;
     }
 
-    public List<Topic> getTopicList() {
-        return topicList;
+    public int getTopicId() {
+        return topicId;
     }
 
-    public void setTopicList(List<Topic> topicList) {
-        this.topicList = topicList;
+    public void setTopicId(int topicId) {
+        this.topicId = topicId;
     }
 
     @Override

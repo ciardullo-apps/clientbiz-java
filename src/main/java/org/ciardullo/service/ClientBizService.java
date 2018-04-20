@@ -1,5 +1,6 @@
 package org.ciardullo.service;
 
+import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.ciardullo.data.mapper.AppointmentMapper;
 import org.ciardullo.data.mapper.ClientTopicMapper;
 import org.ciardullo.data.mapper.ClienteleMapper;
@@ -52,15 +53,18 @@ public class ClientBizService {
     }
 
     @Transactional
-    public int insertClient(Clientele clientele, int topicId) {
+    public int insertClient(Clientele clientele) {
         int numRows = clienteleMapper.insertClientele(clientele);
-        clientTopicMapper.insertClientTopic(clientele.getId(), topicId);
+        clientTopicMapper.insertClientTopic(clientele.getId(), clientele.getTopicId());
         return numRows;
     }
 
     @Transactional
     public int updateClient(Clientele clientele) {
         int numRows = clienteleMapper.updateClientele(clientele);
+        if(numRows != 1) {
+            throw new TooManyResultsException(String.format("Updated %d rows!", numRows));
+        }
         return numRows;
     }
 }

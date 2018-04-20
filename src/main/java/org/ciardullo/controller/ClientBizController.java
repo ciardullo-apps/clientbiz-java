@@ -126,9 +126,9 @@ public class ClientBizController {
     @PostMapping(path = "/saveClient", consumes = "application/json", produces = "application/json")
     public String saveClient(@RequestBody Clientele client) {
         if (client.getId() > 0) {
-            System.out.printf("Updating %s%n", client.toString());
+            clientService.updateClient(client);
         } else {
-            System.out.printf("Inserting %s%n", client.toString());
+            clientService.insertClient(client);
         }
 
         return "greeting";

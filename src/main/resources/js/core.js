@@ -7,7 +7,7 @@ var formData = {
     "id": $("#id").val(),
     "firstname": $("#firstName").val(),
     "lastname": $("#lastName").val(),
-    "topicList": { $("#topic_id").val() },
+    "topicList": [ $("select#topic_id option:checked").val() ],
     "contactname": $("#contactName").val(),
     "city": $("#city").val(),
     "state": $("#state").val(),

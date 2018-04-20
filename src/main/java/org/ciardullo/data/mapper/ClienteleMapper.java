@@ -19,8 +19,9 @@ public interface ClienteleMapper {
     @Options(useGeneratedKeys=true)
     int insertClientele(Clientele clientele);   // mybatis returns number of rows inserted, NOT the id
 
-    @Update("UPDATE clientele SET firstname = #{firsName}, lastName = #{lastName}, contactname = #{contactName}, city = #{city}, state = #{state}, " +
-            "timezone = #{timezone}, firstcontact = #{firstContact}, firstresponse = #{firstResponse}, solicited = #{solicited}")
+    @Update("UPDATE clientele SET firstname = #{firstName}, lastName = #{lastName}, contactname = #{contactName}, city = #{city}, state = #{state}, " +
+        "timezone = #{timezone}, firstcontact = #{firstContact}, firstresponse = #{firstResponse}, solicited = #{solicited} " +
+        "WHERE id = #{id}")
     int updateClientele(Clientele clientele);
 
     int deleteClientele(int id);

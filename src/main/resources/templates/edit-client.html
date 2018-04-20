@@ -36,8 +36,11 @@
                 <tr>
                     <td style="align=right;">Topic:</td>
                     <td style="align:left;">
-                        <select name="topic_id">
-                            <option th:each="topic : ${topics}" th:value="${topic.id}" th:text="${topic.name}">Blah</option>
+                        <select th:field="*{topicId}">
+                            <option
+                                    th:each="topic : ${topics}"
+                                    th:value="${topic.id}"
+                                    th:text="${topic.name}">Blah</option>
                         </select>
                     </td>
                 </tr>
