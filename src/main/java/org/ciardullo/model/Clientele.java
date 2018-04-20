@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Clientele {
@@ -43,6 +44,8 @@ public class Clientele {
 
     @JsonProperty("lastapptyearmonth")
     private String lastApptYearMonth;
+
+    private List<Topic> topicList;
 
     public Clientele() {
     }
@@ -152,6 +155,14 @@ public class Clientele {
 
     public void setLastApptYearMonth(String lastApptYearMonth) {
         this.lastApptYearMonth = lastApptYearMonth;
+    }
+
+    public List<Topic> getTopicList() {
+        return topicList;
+    }
+
+    public void setTopicList(List<Topic> topicList) {
+        this.topicList = topicList;
     }
 
     @Override

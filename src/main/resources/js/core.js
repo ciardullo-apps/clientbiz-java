@@ -4,9 +4,10 @@ var sortOrderIndex = 1;
 function saveClient() {
 //var formData = $('#edit-client').serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
 var formData = {
+    "id": $("#id").val(),
     "firstname": $("#firstName").val(),
     "lastname": $("#lastName").val(),
-    "topic_id": $("#topic_id").val(),
+    "topicList": { $("#topic_id").val() },
     "contactname": $("#contactName").val(),
     "city": $("#city").val(),
     "state": $("#state").val(),

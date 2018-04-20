@@ -58,4 +58,9 @@ public class ClientBizService {
         return numRows;
     }
 
+    @Transactional
+    public int updateClient(Clientele clientele) {
+        int numRows = clienteleMapper.updateClientele(clientele);
+        return numRows;
+    }
 }

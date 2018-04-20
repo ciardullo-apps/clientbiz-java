@@ -1,7 +1,9 @@
 package org.ciardullo;
 
 import org.ciardullo.config.AppConfig;
+import org.ciardullo.config.CustomRequestLoggingFilter;
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -13,20 +15,27 @@ public class ClientBizWebApplicationInitializer implements WebApplicationInitial
     @Override
     public void onStartup(ServletContext servletCxt) {
         // Load Spring web application configuration
-        AnnotationConfigWebApplicationContext ac = new AnnotationConfigWebApplicationContext();
+        AnnotationConfigWebApplicationContext applicationContext =
+                new AnnotationConfigWebApplicationContext();
 
         // Need to set servlet context to avoid IllegalStateException No ServletContext Set
         // when calling AnnotationConfigWebApplicationContext.refresh()
-        ac.setServletContext(servletCxt);
+        applicationContext.setServletContext(servletCxt);
 
-        ac.register(AppConfig.class);
-        ac.refresh();
+        applicationContext.register(AppConfig.class);
+        applicationContext.refresh();
 
         // Create and register the DispatcherServlet
-        DispatcherServlet servlet = new DispatcherServlet(ac);
+        DispatcherServlet servlet = new DispatcherServlet(applicationContext);
         ServletRegistration.Dynamic registration = servletCxt.addServlet("app", servlet);
         registration.setLoadOnStartup(1);
 //        registration.addMapping("/app/*");
         registration.addMapping("/");
+
+        // http://www.baeldung.com/spring-http-logging
+        servletCxt.addFilter("customRequestLoggingFilter",
+                CustomRequestLoggingFilter.class)
+                .addMappingForServletNames(null, false, "app");
     }
+
 }
