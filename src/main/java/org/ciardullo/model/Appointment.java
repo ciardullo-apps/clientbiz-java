@@ -142,7 +142,7 @@ public class Appointment {
         return this.topic.getName();
     }
 
-    @Override
+        @Override
     public String toString() {
         return "Appointment{" +
                 "id=" + id +

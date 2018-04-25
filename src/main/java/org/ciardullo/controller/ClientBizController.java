@@ -125,6 +125,16 @@ public class ClientBizController {
         return s;
     }
 
+    @GetMapping(value = "/receivables.html")
+    public String receivables(Model model) {
+        List<Appointment> appointments = clientService.getAllReceivables();
+
+        model.addAttribute("receivables", appointments);
+        model.addAttribute("viewName", "receivables");
+
+        return "index";
+    }
+
     @PostMapping(path = "/saveClient", consumes = "application/json", produces = "application/json")
     @ResponseBody
     public String saveClient(@RequestBody Clientele client) {
@@ -136,5 +146,11 @@ public class ClientBizController {
 
         String s = String.format("{ \"%s\": \"%d\" }", "updatedClientId", client.getId());
         return s;
+    }
+
+    @PostMapping(path = "/updatePaidDate", consumes = "application/json", produces = "application/json")
+    public String updatePaidDate(int appointmentId, Date paidDate) {
+        System.out.printf("ApptId: %d Date %s", appointmentId, paidDate.toString());
+        return "";
     }
 }

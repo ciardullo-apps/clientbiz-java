@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="receivables">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Receive Payments</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                Recent
+            </button>
+        </div>
+    </div>
+    <div id="receivables" class="table-responsive">
+        <table id="receivableDetailTable" class="table table-sm">
+            <thead>
+            <tr>
+                <th style="align=center;">Appointment ID</th>
+                <th style="align=center;">Client First</th>
+                <th style="align=center;">Client Last</th>
+                <th style="align=center;">Topic</th>
+                <th style="align=center;">Start time</th>
+                <th style="align=center;">Duration</th>
+                <th style="align=center;">Hourly Rate</th>
+                <th style="align=center;">Billing %</th>
+                <th style="align=center;">Amount Due</th>
+                <th style="align=center;">Paid</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="10" style="text-align:right">
+                    <input type="date" name="paiddate" />
+                </td>
+            </tr>
+            <tr th:each="receivable : ${receivables}">
+                <td style="align:left;" th:text="${receivable.id}"></td>
+                <td style="align:left;" th:text="${receivable.clientele.firstName}"></td>
+                <td style="align:left;" th:text="${receivable.clientele.lastName}"></td>
+                <td style="align:left;" th:text="${receivable.topic.name}"></td>
+                <td style="align:left;" th:text="${#dates.format(receivable.startTime, 'MM/dd/yyyy, hh:mm:ss a')}"></td>
+                <td style="align:left;" th:text="${receivable.duration}"></td>
+                <td style="align:left;" th:text="${#numbers.formatDecimal(receivable.rate, 0, 'COMMA', 0, 'POINT')}"></td>
+                <td style="align:left;" th:text="${receivable.billingPct}"></td>
+                <td style="align:left;" th:text="${#numbers.formatCurrency((receivable.rate * (receivable.duration / 60.0) * receivable.billingPct))}"></td>
+                <td style="align:left;"><a th:href th:onclick="${'getPaid(' + receivable.id + '); return false;'}">Mark Paid</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</body>
+</html>

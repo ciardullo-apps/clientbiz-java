@@ -6,6 +6,7 @@ import org.ciardullo.model.Appointment;
 import org.ciardullo.model.Clientele;
 import org.ciardullo.model.Topic;
 
+import java.util.Date;
 import java.util.List;
 
 public interface AppointmentMapper {
@@ -46,4 +47,7 @@ public interface AppointmentMapper {
 
     })
     List<Appointment> findAppointmentsByClient(int clientId);
+
+    @Update("UPDATE appointment SET paid = #{paid} WHERE id = #{appointmentId}")
+    int updatePaidDate(int appointmentId, Date paidDate);
 }
