@@ -110,7 +110,7 @@
             </div>
         </nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div th:include="edit-client :: edit-client">
+            <div th:include="${viewName} :: ${viewName}">
             </div>
 
             <canvas class="my-4" id="myChart" width="900" height="380"></canvas>

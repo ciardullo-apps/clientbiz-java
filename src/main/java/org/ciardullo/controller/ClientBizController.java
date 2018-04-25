@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -71,6 +72,7 @@ public class ClientBizController {
 
         model.addAttribute("client", client);
         model.addAttribute("topics", topics);
+        model.addAttribute("viewName", "edit-client");
 
         return "index";
     }
@@ -124,6 +126,7 @@ public class ClientBizController {
     }
 
     @PostMapping(path = "/saveClient", consumes = "application/json", produces = "application/json")
+    @ResponseBody
     public String saveClient(@RequestBody Clientele client) {
         if (client.getId() > 0) {
             clientService.updateClient(client);
@@ -131,6 +134,7 @@ public class ClientBizController {
             clientService.insertClient(client);
         }
 
-        return "greeting";
+        String s = String.format("{ \"%s\": \"%d\" }", "updatedClientId", client.getId());
+        return s;
     }
 }

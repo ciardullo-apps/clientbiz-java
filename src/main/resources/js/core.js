@@ -2,21 +2,21 @@ var sortOrders =  [ 'asc', 'desc' ];
 var sortOrderIndex = 1;
 
 function saveClient() {
-//var formData = $('#edit-client').serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
-var formData = {
-    "id": $("#id").val(),
-    "firstname": $("#firstName").val(),
-    "lastname": $("#lastName").val(),
-    "topicList": [ $("select#topic_id option:checked").val() ],
-    "contactname": $("#contactName").val(),
-    "city": $("#city").val(),
-    "state": $("#state").val(),
-    "timezone": $("#timezone").val(),
-    "firstcontact": $("#firstContact").val(),
-    "firstresponse": $("#firstResponse").val(),
-    "solicited": $("#solicited").val()
-}
-console.log(JSON.stringify(formData));
+    //var formData = $('#edit-client').serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
+    var formData = {
+        "id": $("#id").val(),
+        "firstname": $("#firstName").val(),
+        "lastname": $("#lastName").val(),
+        "topicList": [ $("select#topic_id option:checked").val() ],
+        "contactname": $("#contactName").val(),
+        "city": $("#city").val(),
+        "state": $("#state").val(),
+        "timezone": $("#timezone").val(),
+        "firstcontact": $("#firstContact").val(),
+        "firstresponse": $("#firstResponse").val(),
+        "solicited": $("#solicited").val()
+    }
+    console.log(JSON.stringify(formData));
 
     $.ajax({
         method: 'POST',
