@@ -48,6 +48,6 @@ public interface AppointmentMapper {
     })
     List<Appointment> findAppointmentsByClient(int clientId);
 
-    @Update("UPDATE appointment SET paid = #{paid} WHERE id = #{appointmentId}")
-    int updatePaidDate(int appointmentId, Date paidDate);
+    @Update("UPDATE appointment SET paid = #{paid} WHERE id = #{id}")
+    int updatePaidDate(Appointment appointment);
 }

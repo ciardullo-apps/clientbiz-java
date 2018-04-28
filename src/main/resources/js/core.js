@@ -30,6 +30,25 @@ function saveClient() {
       });
 
 }
+
+function getPaid(appointmentId) {
+    var formData = {
+        "id": appointmentId,
+        "paid": $("#paiddate").val()
+    }
+    console.log(JSON.stringify(formData));
+
+    $.ajax({
+        method: 'POST',
+        url: '/clientbiz-java/updatePaidDate',
+        data: JSON.stringify(formData), // pass fields as strings
+        contentType: 'application/json',
+        processData: false
+      })
+      .done(function(data) {
+        console.log(data);
+      });
+}
 /*
 window.addEventListener("load", function () {
   function saveClient() {

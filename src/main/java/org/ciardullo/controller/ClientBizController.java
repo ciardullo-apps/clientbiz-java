@@ -131,6 +131,7 @@ public class ClientBizController {
 
         model.addAttribute("receivables", appointments);
         model.addAttribute("viewName", "receivables");
+        model.addAttribute("paiddate", new Date());
 
         return "index";
     }
@@ -149,8 +150,10 @@ public class ClientBizController {
     }
 
     @PostMapping(path = "/updatePaidDate", consumes = "application/json", produces = "application/json")
-    public String updatePaidDate(int appointmentId, Date paidDate) {
-        System.out.printf("ApptId: %d Date %s", appointmentId, paidDate.toString());
-        return "";
+    @ResponseBody
+    public String updatePaidDate(@RequestBody Appointment appointment) {
+        clientService.updatePaidDate(appointment);
+        String s = String.format("{ \"%s\": \"%d\" }", "updatedAppointmentId", appointment.getId());
+        return s;
     }
 }

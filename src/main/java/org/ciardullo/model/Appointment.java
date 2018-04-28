@@ -1,29 +1,35 @@
 package org.ciardullo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Appointment {
     private int id;
+
     @JsonProperty("client_id")
     private int clientId;
+
     @JsonProperty("topic_id")
     private int topicId;
+
     @JsonProperty("starttime")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private Date startTime;
+
     private int duration;
+
     private BigDecimal rate;
+
     @JsonProperty("billingpct")
     private BigDecimal billingPct;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "US/Eastern")
     private Date paid;
 
     @JsonIgnore

@@ -67,4 +67,13 @@ public class ClientBizService {
         }
         return numRows;
     }
+
+    @Transactional
+    public int updatePaidDate(Appointment appointment) {
+        int numRows = appointmentMapper.updatePaidDate(appointment);
+        if(numRows != 1) {
+            throw new TooManyResultsException(String.format("Updated %d rows!", numRows));
+        }
+        return numRows;
+    }
 }

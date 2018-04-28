@@ -34,7 +34,7 @@
             <tbody>
             <tr>
                 <td colspan="10" style="text-align:right">
-                    <input type="date" name="paiddate" />
+                    <input id="paiddate" type="date" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
                 </td>
             </tr>
             <tr th:each="receivable : ${receivables}">
