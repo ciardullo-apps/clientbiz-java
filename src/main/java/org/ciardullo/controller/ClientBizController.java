@@ -47,7 +47,8 @@ public class ClientBizController {
         }
 
         model.addAttribute("clients", clients);
-        return "greeting";
+        model.addAttribute("viewName", "client-list");
+        return "index";
     }
 
     @GetMapping(value = "/client/{id}", produces = "application/json")

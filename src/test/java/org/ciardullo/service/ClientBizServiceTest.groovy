@@ -67,8 +67,9 @@ class ClientBizServiceTest extends Specification {
             c.setState("NA")
             c.setTimezone("US/Eastern")
             c.setFirstResponse(Date.from(LocalDateTime.of(2018, 1, 1, 15, 0).toInstant(ZoneOffset.UTC)))
+            c.setTopicId(1)
         when:
-            clientService.insertClient(c, 1)
+            clientService.insertClient(c)
         and:
             def clientele = clientService.getClient(c.getId())
         then:

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="client-list">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Clients</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                Recent
+            </button>
+        </div>
+    </div>
+
+    <div id="clientList" class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th><a th:href th-onclick="loadClients('id')">#</a></th>
+                <th><a th:href th-onclick="loadClients('firstname')">First</a></th>
+                <th><a th:href th-onclick="loadClients('lastname')">Last</a></th>
+                <th><a th:href th-onclick="loadClients('contactname')">Contact</a></th>
+                <th><a th:href th-onclick="loadClients('timezone')">Timezone</a></th>
+                <th><a th:href th-onclick="loadClients('solicited')">Solicited</a></th>
+                <th><a th:href th-onclick="loadClients('numappts')"># Appointments</a></th>
+                <th><a th:href th-onclick="loadClients('lastapptdate')">Last Appointment</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer: ${clients}">
+                <td style="align:left;" th:text="${customer.id}"></td>
+                <td><a th:href="@{/client/${customer.id}}" th:text="${customer.firstName}"></a></td>
+                <td th:text="${customer.lastName}"></td>
+                <td th:text="${customer.contactName}"></td>
+                <td th:text="${customer.timezone}"></td>
+                <td><input type="checkbox" ng-checked="!!+customer.solicited" disabled="true"></td>
+                <td><a th:href="@{/appointments/${customer.id}}" th:text="${customer.numappts}"></a></td>
+                <td th:text="${customer.lastApptDate}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
