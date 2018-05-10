@@ -93,6 +93,20 @@ public class ClientBizController {
         return s;
     }
 
+    @GetMapping(value = "/appointments/{id}.html")
+    public String appointments(Model model, @PathVariable("id") int id) {
+        Clientele client = clientService.getClient(id);
+        List<Topic> topics = clientService.getTopics();
+        List<Appointment> appointments = clientService.getAppointmentsByClient(id);
+
+        model.addAttribute("client", client);
+        model.addAttribute("appointments", appointments);
+        model.addAttribute("topics", topics);
+        model.addAttribute("viewName", "appointment-list");
+
+        return "index";
+    }
+
     @GetMapping(value = "/topics", produces = "application/json")
     @ResponseBody
     public String topics() {

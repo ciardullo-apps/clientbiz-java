@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="appointment-list">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2" th:text="${client.firstName} + ' ' + ${client.lastName} + ' Appointment History'"</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <button class="btn btn-sm btn-outline-secondary">Share</button>
+            <button class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            Recent
+        </button>
+    </div>
+</div>
+<div id="appointmentDetail" class="table-responsive">
+    <table id="appointmentDetailTable" class="table table-sm">
+        <thead>
+        <tr>
+            <th style="align=center;">Topic ID</th>
+            <th style="align=center;">Start time</th>
+            <th style="align=center;">Duration</th>
+            <th style="align=center;">Hourly Rate</th>
+            <th style="align=center;">Billing %</th>
+            <th style="align=center;">Date paid</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><!-- bootstrap on Chrome causes display to shake when only one row in the table -->
+            <td colspan="6">&nbsp;</td>
+        </tr>
+        <tr th:each="appointment : ${appointments}">
+            <td style="align:left;" th:text="${topics[appointment.topic.id - 1].name}"></td>
+            <td style="align:left;" th:text="${#dates.format(appointment.startTime, 'MM/dd/yyyy, hh:mm:ss a')}"></td>
+            <td style="align:left;" th:text="${appointment.duration}"></td>
+            <td style="align:left;" th:text="${appointment.rate}"></td>
+            <td style="align:left;" th:text="${appointment.billingPct}"></td>
+            <td style="align:left;" th:text="${#dates.format(appointment.paid, 'MM/dd/yyyy')}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

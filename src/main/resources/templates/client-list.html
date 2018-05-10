@@ -33,13 +33,13 @@
             <tbody>
             <tr th:each="customer: ${clients}">
                 <td style="align:left;" th:text="${customer.id}"></td>
-                <td><a th:href="@{/client/${customer.id}}" th:text="${customer.firstName}"></a></td>
+                <td><a th:href="@{/client/{customerId}.html(customerId=${customer.Id})}" th:text="${customer.firstName}"></a></td>
                 <td th:text="${customer.lastName}"></td>
                 <td th:text="${customer.contactName}"></td>
                 <td th:text="${customer.timezone}"></td>
-                <td><input type="checkbox" ng-checked="!!+customer.solicited" disabled="true"></td>
-                <td><a th:href="@{/appointments/${customer.id}}" th:text="${customer.numappts}"></a></td>
-                <td th:text="${customer.lastApptDate}"></td>
+                <td><input type="checkbox" th:checked="${customer.solicited}" disabled="true"></td>
+                <td><a th:href="@{/appointments/{customerId}.html(customerId=${customer.id})}" th:text="${customer.numappts}"></a></td>
+                <td th:text="${#dates.format(customer.lastApptDate, 'yyyy-MM-dd')}"></td>
             </tr>
             </tbody>
         </table>
