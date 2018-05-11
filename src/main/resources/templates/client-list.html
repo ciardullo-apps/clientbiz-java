@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="client-list">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
@@ -16,18 +17,18 @@
         </div>
     </div>
 
-    <div id="clientList" class="table-responsive">
+    <div id="clientList" class="table-responsive" th:fragment="client-list-internal">
         <table class="table table-sm">
             <thead>
             <tr>
-                <th><a th:href th-onclick="loadClients('id')">#</a></th>
-                <th><a th:href th-onclick="loadClients('firstname')">First</a></th>
-                <th><a th:href th-onclick="loadClients('lastname')">Last</a></th>
-                <th><a th:href th-onclick="loadClients('contactname')">Contact</a></th>
-                <th><a th:href th-onclick="loadClients('timezone')">Timezone</a></th>
-                <th><a th:href th-onclick="loadClients('solicited')">Solicited</a></th>
-                <th><a th:href th-onclick="loadClients('numappts')"># Appointments</a></th>
-                <th><a th:href th-onclick="loadClients('lastapptdate')">Last Appointment</a></th>
+                <th><a th:href th:onclick="${'loadClients(''id''); return false;'}">#</a></th>
+                <th><a th:href th:onclick="${'loadClients(''firstname''); return false;'}">First</a></th>
+                <th><a th:href th:onclick="${'loadClients(''lastname''); return false;'}">Last</a></th>
+                <th><a th:href th:onclick="${'loadClients(''contactname''); return false;'}">Contact</a></th>
+                <th><a th:href th:onclick="${'loadClients(''timezone''); return false;'}">Timezone</a></th>
+                <th><a th:href th:onclick="${'loadClients(''solicited''); return false;'}">Solicited</a></th>
+                <th><a th:href th:onclick="${'loadClients(''numappts''); return false;'}"># Appointments</a></th>
+                <th><a th:href th:onclick="${'loadClients(''lastapptdate''); return false;'}">Last Appointment</a></th>
             </tr>
             </thead>
             <tbody>

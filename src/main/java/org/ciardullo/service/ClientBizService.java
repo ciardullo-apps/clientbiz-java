@@ -33,7 +33,11 @@ public class ClientBizService {
     PlatformTransactionManager platformTransactionManager;
 
     public List<Clientele> getClients() {
-        return clienteleMapper.getClients();
+        return clienteleMapper.getClients("id", "asc");
+    }
+
+    public List<Clientele> getClients(String sortColumn, String sortOrder) {
+        return clienteleMapper.getClients(sortColumn, sortOrder);
     }
 
     public Clientele getClient(int id) {

@@ -1,9 +1,6 @@
 package org.ciardullo.data.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.ciardullo.model.Clientele;
 
 import java.util.List;
@@ -29,7 +26,9 @@ public interface ClienteleMapper {
     @Select("SELECT * from clientele where id = #{id}")
     Clientele getClient(int id);
 
-    @Select("SELECT * from clientview")
-    List<Clientele> getClients();
+    // MyBatis requires the @Param annotation when there are two or more parameters
+    // order by parameter names must be preceded by $ instead of #
+    @Select("SELECT * from clientview ORDER BY ${sortColumn} ${sortOrder}")
+    List<Clientele> getClients(@Param("sortColumn") String sortColumn, @Param("sortOrder") String sortOrder);
 
 }

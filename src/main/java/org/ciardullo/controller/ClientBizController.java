@@ -40,15 +40,18 @@ public class ClientBizController {
     }
 
     @GetMapping(value = "/client.html")
-    public String client(Model model) {
-        List<Clientele> clients = clientService.getClients();
+    public String client(@RequestParam(value="sortColumn", required = false, defaultValue = "lastapptdate") String sortColumn,
+                         @RequestParam(value="sortOrder", required = false, defaultValue = "desc") String sortOrder,
+                         @RequestParam(value="target", required = false, defaultValue = "index") String target,
+                         Model model) {
+        List<Clientele> clients = clientService.getClients(sortColumn, sortOrder);
         for (Clientele client : clients) {
-            System.out.println(client);
+            System.out.println(client.getId());
         }
 
         model.addAttribute("clients", clients);
         model.addAttribute("viewName", "client-list");
-        return "index";
+        return target;
     }
 
     @GetMapping(value = "/client/{id}", produces = "application/json")

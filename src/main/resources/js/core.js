@@ -91,6 +91,24 @@ window.addEventListener("load", function () {
   });
 });
 */
+
+function loadClients(sortColumn) {
+    var formData = {
+          sortColumn: sortColumn,
+          sortOrder: sortOrders[(sortOrderIndex ^= 1)],
+          target: "client-list :: client-list-internal"
+    }
+
+    $.ajax({
+        method: 'GET',
+        url: '/clientbiz-java/client.html',
+        data: formData
+      })
+      .done(function(data) {
+        $('#clientList').replaceWith(data);
+      });
+}
+
 function clientListController($scope, $http) {
   $scope.formData = {};
   $http.get('/client')
