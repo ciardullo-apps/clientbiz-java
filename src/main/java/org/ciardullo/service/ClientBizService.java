@@ -59,6 +59,7 @@ public class ClientBizService {
     @Transactional
     public int insertClient(Clientele clientele) {
         int numRows = clienteleMapper.insertClientele(clientele);
+        System.out.println("#### INSERTED CLIENTELE " + clientele.getId());
         clientTopicMapper.insertClientTopic(clientele.getId(), clientele.getTopicId());
         return numRows;
     }

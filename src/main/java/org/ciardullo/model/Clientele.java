@@ -27,11 +27,11 @@ public class Clientele {
     private String timezone;
 
     @JsonProperty("firstcontact")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone="US/Eastern")
     private Date firstContact;
 
     @JsonProperty("firstresponse")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone="US/Eastern")
     private Date firstResponse;
 
     private boolean solicited;

@@ -7,14 +7,14 @@ function saveClient() {
         "id": $("#id").val(),
         "firstname": $("#firstName").val(),
         "lastname": $("#lastName").val(),
-        "topicList": [ $("select#topic_id option:checked").val() ],
+        "topicId": $("#topicId option:selected").val(),
         "contactname": $("#contactName").val(),
         "city": $("#city").val(),
         "state": $("#state").val(),
         "timezone": $("#timezone").val(),
         "firstcontact": $("#firstContact").val(),
         "firstresponse": $("#firstResponse").val(),
-        "solicited": $("#solicited").val()
+        "solicited": $("#solicited1").is(':checked') // TODO Why is Thymeleaf adding 1 to the id?
     }
     console.log(JSON.stringify(formData));
 

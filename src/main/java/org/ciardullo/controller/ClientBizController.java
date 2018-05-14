@@ -12,6 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -72,6 +78,22 @@ public class ClientBizController {
     @GetMapping(value = "/client/{id}.html")
     public String client(Model model, @PathVariable("id") int id) {
         Clientele client = clientService.getClient(id);
+        List<Topic> topics = clientService.getTopics();
+
+        model.addAttribute("client", client);
+        model.addAttribute("topics", topics);
+        model.addAttribute("viewName", "edit-client");
+
+        return "index";
+    }
+
+    @GetMapping(value = "/addClient")
+    public String addClient(Model model) {
+        Clientele client = new Clientele();
+        LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault()).withMinute(0).withSecond(0).withNano(0).plusHours(1);
+        Date nextHour = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
+        client.setFirstResponse(nextHour);
+        client.setFirstContact(nextHour);
         List<Topic> topics = clientService.getTopics();
 
         model.addAttribute("client", client);
@@ -157,6 +179,7 @@ public class ClientBizController {
     @PostMapping(path = "/saveClient", consumes = "application/json", produces = "application/json")
     @ResponseBody
     public String saveClient(@RequestBody Clientele client) {
+        System.out.println(client);
         if (client.getId() > 0) {
             clientService.updateClient(client);
         } else {
