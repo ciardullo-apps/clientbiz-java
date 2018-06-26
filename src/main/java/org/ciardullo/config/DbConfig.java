@@ -21,7 +21,8 @@ public class DbConfig {
     public DataSource dataSource() {
         // TODO Parameterize credentials
         DriverManagerDataSource dataSource =
-                new DriverManagerDataSource("jdbc:mysql://localhost:3306/clientbiz", "john", "test");
+                new DriverManagerDataSource("jdbc:mysql://localhost:3306/clientbiz?useUnicode=yes&characterEncoding=UTF-8", "john", "test");
+
         // TODO Parameterize driver name
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         return dataSource;
