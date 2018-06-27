@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="create-appointment">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">New Appointment</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                Recent
+            </button>
+        </div>
+    </div>
+
+    <div id="createAppointment" class="table-responsive">
+        <form id="create-appointment" action="#" th:action="@{/saveAppointment}" th:object="${appointment}" method="post">
+
+            <table id="appointmentDetailTable" class="table table-striped table-sm">
+                <tbody>
+                <tr>
+                    <td style="align=right;">Client:</td>
+                    <td style="align:left;">
+                        <select th:field="*{clientId}">
+                            <option
+                                    th:each="client : ${clients}"
+                                    th:value="${client.id}"
+                                    th:text="${client.firstName}">Blah</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="align=right;">Topic:</td>
+                    <td style="align:left;">
+                        <select th:field="*{topicId}">
+                            <option
+                                    th:each="topic : ${topics}"
+                                    th:value="${topic.id}"
+                                    th:text="${topic.name}">Blah</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="align=right;">Start time:</td>
+                    <td style="align:left;"><input type="datetime-local" th:field="*{startTime}" /></td>
+                </tr>
+                <tr>
+                    <td style="align=right;">Duration:</td>
+                    <td style="align:left;"><input type="number" th:field="*{duration}" min="10" max="600" size="5" /></td>
+                </tr>
+                <tr>
+                    <td style="align=right;">Hourly Rate:</td>
+                    <td style="align:left;"><input type="number" th:field="*{rate}" min="10" max="600" size="5" /></td>
+                </tr>
+                <tr>
+                    <td style="align=right;">Billing %:</td>
+                    <td style="align:left;"><input type="number" th:field="*{billingPct}" min="0.75" max="1.00" step="0.05" size="5" /></td>
+                </tr>
+                <tr>
+                    <td style="align=right;">&nbsp;</td>
+                    <td style="align:left;"><input type="button" value="Save" onclick="saveAppointment(); return false;"/></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

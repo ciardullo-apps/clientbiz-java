@@ -12,12 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.time.temporal.TemporalAccessor;
-import java.time.temporal.TemporalUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -90,10 +87,8 @@ public class ClientBizController {
     @GetMapping(value = "/addClient")
     public String addClient(Model model) {
         Clientele client = new Clientele();
-        LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault()).withMinute(0).withSecond(0).withNano(0).plusHours(1);
-        Date nextHour = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
-        client.setFirstResponse(nextHour);
-        client.setFirstContact(nextHour);
+        client.setFirstResponse(getNextHour());
+        client.setFirstContact(getNextHour());
         List<Topic> topics = clientService.getTopics();
 
         model.addAttribute("client", client);
@@ -196,5 +191,28 @@ public class ClientBizController {
         clientService.updatePaidDate(appointment);
         String s = String.format("{ \"%s\": \"%d\" }", "updatedAppointmentId", appointment.getId());
         return s;
+    }
+
+    @GetMapping(value = "/addAppointment")
+    public String addAppointment(Model model) {
+        Appointment appointment = new Appointment();
+        appointment.setBillingPct(new BigDecimal("0.8"));
+        appointment.setRate(new BigDecimal("60"));
+        appointment.setDuration(60);
+        appointment.setStartTime(getNextHour());
+        List<Clientele> clients = clientService.getClients();
+        List<Topic> topics = clientService.getTopics();
+
+        model.addAttribute("appointment", appointment);
+        model.addAttribute("clients", clients);
+        model.addAttribute("topics", topics);
+        model.addAttribute("viewName", "create-appointment");
+
+        return "index";
+    }
+
+    private Date getNextHour() {
+        LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault()).withMinute(0).withSecond(0).withNano(0).plusHours(1);
+        return Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
     }
 }
