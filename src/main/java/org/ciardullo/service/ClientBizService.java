@@ -81,4 +81,11 @@ public class ClientBizService {
         }
         return numRows;
     }
+
+    @Transactional
+    public int insertAppointment(Appointment appointment) {
+        int numRows = appointmentMapper.insertAppointment(appointment);
+        System.out.println("#### INSERTED APPOINTMENT " + appointment.getId());
+        return numRows;
+    }
 }

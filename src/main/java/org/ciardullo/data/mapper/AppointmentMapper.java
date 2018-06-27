@@ -50,4 +50,9 @@ public interface AppointmentMapper {
 
     @Update("UPDATE appointment SET paid = #{paid} WHERE id = #{id}")
     int updatePaidDate(Appointment appointment);
+
+    @Insert("INSERT INTO appointment (client_id, topic_id, starttime, duration, rate, billingpct) " +
+            "VALUES (#{clientId}, #{topicId}, #{startTime}, #{duration}, #{rate}, #{billingPct}) ")
+    @Options(useGeneratedKeys=true)
+    int insertAppointment(Appointment appointment);   // mybatis returns number of rows inserted, NOT the id
 }

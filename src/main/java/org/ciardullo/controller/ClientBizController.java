@@ -211,6 +211,16 @@ public class ClientBizController {
         return "index";
     }
 
+    @PostMapping(path = "/saveAppointment", consumes = "application/json", produces = "application/json")
+    @ResponseBody
+    public String saveAppointment(@RequestBody Appointment appointment) {
+        System.out.println(appointment);
+        clientService.insertAppointment(appointment);
+
+        String s = String.format("{ \"%s\": \"%d\" }", "updatedClientId", appointment.getId());
+        return s;
+    }
+
     private Date getNextHour() {
         LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault()).withMinute(0).withSecond(0).withNano(0).plusHours(1);
         return Date.from(now.atZone(ZoneId.systemDefault()).toInstant());

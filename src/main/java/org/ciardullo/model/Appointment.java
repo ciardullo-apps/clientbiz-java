@@ -20,7 +20,7 @@ public class Appointment {
     private int topicId;
 
     @JsonProperty("starttime")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone="US/Eastern")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date startTime;
 
@@ -67,6 +67,7 @@ public class Appointment {
         this.topicId = topicId;
     }
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     public Date getStartTime() {
         return startTime;
     }
