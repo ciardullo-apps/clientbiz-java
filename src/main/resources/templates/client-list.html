@@ -28,6 +28,7 @@
                 <th><a th:href th:onclick="${'loadClients(''timezone''); return false;'}">Timezone</a></th>
                 <th><a th:href th:onclick="${'loadClients(''solicited''); return false;'}">Solicited</a></th>
                 <th><a th:href th:onclick="${'loadClients(''numappts''); return false;'}"># Appointments</a></th>
+                <th><a th:href th:onclick="${'loadClients(''revenue''); return false;'}">Revenue</a></th>
                 <th><a th:href th:onclick="${'loadClients(''lastapptdate''); return false;'}">Last Appointment</a></th>
             </tr>
             </thead>
@@ -40,6 +41,7 @@
                 <td th:text="${customer.timezone}"></td>
                 <td><input type="checkbox" th:checked="${customer.solicited}" disabled="true"></td>
                 <td><a th:href="@{/appointments/{customerId}.html(customerId=${customer.id})}" th:text="${customer.numappts}"></a></td>
+                <td th:text="${#numbers.formatCurrency(customer.revenue)}"></td>
                 <td th:text="${#dates.format(customer.lastApptDate, 'yyyy-MM-dd')}"></td>
             </tr>
             </tbody>

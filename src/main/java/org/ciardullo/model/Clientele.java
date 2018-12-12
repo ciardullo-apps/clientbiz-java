@@ -3,7 +3,9 @@ package org.ciardullo.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -37,6 +39,8 @@ public class Clientele {
     private boolean solicited;
 
     private int numappts;
+
+    private BigDecimal revenue;
 
     @JsonProperty("lastapptdate")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
@@ -138,6 +142,15 @@ public class Clientele {
 
     public void setNumappts(int numappts) {
         this.numappts = numappts;
+    }
+
+    @NumberFormat(style = NumberFormat.Style.CURRENCY)
+    public BigDecimal getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(BigDecimal revenue) {
+        this.revenue = revenue;
     }
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
