@@ -1,4 +1,4 @@
-A simple time-based client billing app for service professionals built using Java 8, Spring 5, Thymeleaf, MyBatis, Jackson, and SL4J. Tests writting in Spock and Groovy.
+A simple time-based client billing app for service professionals built using Java 8, Spring 5, Thymeleaf, MyBatis, Jackson, and SL4J. Tests written in Spock and Groovy.
 
 ### Data model
 
