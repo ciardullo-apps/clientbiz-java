@@ -116,7 +116,8 @@ function saveAppointment() {
         "starttime": $("#startTime").val(),
         "duration": $("#duration").val(),
         "rate": $("#rate").val(),
-        "billingpct": $("#billingPct").val()
+        "billingpct": $("#billingPct").val(),
+        "description": $("#description").val()
     }
     console.log(JSON.stringify(formData));
 

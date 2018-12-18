@@ -61,6 +61,10 @@
                     <td style="align:left;"><input type="number" th:field="*{billingPct}" min="0.75" max="1.00" step="0.05" size="5" /></td>
                 </tr>
                 <tr>
+                    <td style="align=right;">Description:</td>
+                    <td style="align:left;"><textarea th:field="*{description}" cols="80" rows="5"/></td>
+                </tr>
+                <tr>
                     <td style="align=right;">&nbsp;</td>
                     <td style="align:left;"><input type="button" value="Save" onclick="saveAppointment(); return false;"/></td>
                 </tr>
