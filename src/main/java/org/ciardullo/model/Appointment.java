@@ -40,6 +40,8 @@ public class Appointment {
     @JsonIgnore
     private Topic topic;
 
+    private String description;
+
     public Appointment() {
     }
 
@@ -151,7 +153,15 @@ public class Appointment {
         return this.topic.getName();
     }
 
-        @Override
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
     public String toString() {
         return "Appointment{" +
                 "id=" + id +
@@ -164,6 +174,7 @@ public class Appointment {
                 ", paid=" + paid +
                 ", clientele=" + clientele +
                 ", topic=" + topic +
+                ", description=" + description +
                 '}';
     }
 }
