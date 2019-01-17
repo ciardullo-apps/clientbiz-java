@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ClientBizController {
@@ -75,7 +76,16 @@ public class ClientBizController {
     @GetMapping(value = "/client/{id}.html")
     public String client(Model model, @PathVariable("id") int id) {
         Clientele client = clientService.getClient(id);
-        List<Topic> topics = clientService.getTopics();
+        Map<Integer, Topic> topics = clientService.getTopics();
+
+        // Get topic for client's last appointment
+        List<Appointment> appointmentsByClient = clientService.getAppointmentsByClient(id);
+        if(appointmentsByClient.size() > 0) {
+            client.setTopicId(
+                    appointmentsByClient.get(appointmentsByClient.size() - 1)
+                            .getTopic()
+                            .getId());
+        }
 
         model.addAttribute("client", client);
         model.addAttribute("topics", topics);
@@ -89,7 +99,7 @@ public class ClientBizController {
         Clientele client = new Clientele();
         client.setFirstResponse(getNextHour());
         client.setFirstContact(getNextHour());
-        List<Topic> topics = clientService.getTopics();
+        Map<Integer, Topic> topics = clientService.getTopics();
 
         model.addAttribute("client", client);
         model.addAttribute("topics", topics);
@@ -116,7 +126,7 @@ public class ClientBizController {
     @GetMapping(value = "/appointments/{id}.html")
     public String appointments(Model model, @PathVariable("id") int id) {
         Clientele client = clientService.getClient(id);
-        List<Topic> topics = clientService.getTopics();
+        Map<Integer, Topic> topics = clientService.getTopics();
         List<Appointment> appointments = clientService.getAppointmentsByClient(id);
 
         model.addAttribute("client", client);
@@ -130,7 +140,7 @@ public class ClientBizController {
     @GetMapping(value = "/topics", produces = "application/json")
     @ResponseBody
     public String topics() {
-        List<Topic> topics = clientService.getTopics();
+        Map<Integer, Topic> topics = clientService.getTopics();
 
         String s = "";
         try {
@@ -201,7 +211,7 @@ public class ClientBizController {
         appointment.setDuration(60);
         appointment.setStartTime(getNextHour());
         List<Clientele> clients = clientService.getClients();
-        List<Topic> topics = clientService.getTopics();
+        Map<Integer, Topic> topics = clientService.getTopics();
 
         model.addAttribute("appointment", appointment);
         model.addAttribute("clients", clients);

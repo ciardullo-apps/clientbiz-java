@@ -14,6 +14,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ClientBizService {
@@ -48,7 +49,7 @@ public class ClientBizService {
         return appointmentMapper.findAppointmentsByClient(clientId);
     }
 
-    public List<Topic> getTopics() {
+    public Map<Integer, Topic> getTopics() {
         return topicMapper.selectTopics();
     }
 

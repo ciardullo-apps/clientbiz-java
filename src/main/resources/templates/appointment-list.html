@@ -33,7 +33,7 @@
             <td colspan="7">&nbsp;</td>
         </tr>
         <tr th:each="appointment : ${appointments}">
-            <td style="align:left;" th:text="${topics[appointment.topic.id - 1].name}"></td>
+            <td style="align:left;" th:text="${topics[appointment.topic.id].name}"></td>
             <td style="align:left;" th:text="${#dates.format(appointment.startTime, 'MM/dd/yyyy, hh:mm:ss a')}"></td>
             <td style="align:left;" th:text="${appointment.duration}"></td>
             <td style="align:left;" th:text="${appointment.rate}"></td>
