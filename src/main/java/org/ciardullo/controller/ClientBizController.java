@@ -224,6 +224,11 @@ public class ClientBizController {
     @PostMapping(path = "/saveAppointment", consumes = "application/json", produces = "application/json")
     @ResponseBody
     public String saveAppointment(@RequestBody Appointment appointment) {
+        // After MySQL 8.0.15 update, seeing empty string instead of null in description column
+        if(appointment.getDescription() != null && appointment.getDescription().trim().equals("")) {
+            appointment.setDescription(null);
+        }
+
         System.out.println(appointment);
         clientService.insertAppointment(appointment);
 
