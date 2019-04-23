@@ -161,6 +161,11 @@ public class Appointment {
         this.description = description;
     }
 
+    public BigDecimal getRevenue() {
+        return new BigDecimal(String.format("%.2f",
+                rate.doubleValue() * duration / 60 * billingPct.doubleValue()));
+    }
+
     @Override
     public String toString() {
         return "Appointment{" +

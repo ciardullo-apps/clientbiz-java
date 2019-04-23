@@ -38,17 +38,24 @@
                     <input id="paiddate" type="date" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
                 </td>
             </tr>
-            <tr th:each="receivable : ${receivables}">
-                <td style="align:left;" th:text="${receivable.id}"></td>
-                <td style="align:left;" th:text="${receivable.clientele.firstName}"></td>
-                <td style="align:left;" th:text="${receivable.clientele.lastName}"></td>
-                <td style="align:left;" th:text="${receivable.topic.name}"></td>
-                <td style="align:left;" th:text="${#dates.format(receivable.startTime, 'MM/dd/yyyy, hh:mm:ss a')}"></td>
-                <td style="align:left;" th:text="${receivable.duration}"></td>
-                <td style="align:left;" th:text="${#numbers.formatDecimal(receivable.rate, 0, 'COMMA', 0, 'POINT')}"></td>
-                <td style="align:left;" th:text="${receivable.billingPct}"></td>
-                <td style="align:left;" th:text="${#numbers.formatCurrency((receivable.rate * (receivable.duration / 60.0) * receivable.billingPct))}"></td>
-                <td style="align:left;"><a th:href th:onclick="${'getPaid(' + receivable.id + '); return false;'}">Mark Paid</a></td>
+            <tr th:id="${receivable.id}" th:each="receivable : ${receivables}">
+                <td style="text-align:left;" th:text="${receivable.id}"></td>
+                <td style="text-align:left;" th:text="${receivable.clientele.firstName}"></td>
+                <td style="text-align:left;" th:text="${receivable.clientele.lastName}"></td>
+                <td style="text-align:left;" th:text="${receivable.topic.name}"></td>
+                <td style="text-align:left;" th:text="${#dates.format(receivable.startTime, 'MM/dd/yyyy, hh:mm:ss a')}"></td>
+                <td style="text-align:left;" th:text="${receivable.duration}"></td>
+                <td style="text-align:left;" th:text="${#numbers.formatDecimal(receivable.rate, 0, 'COMMA', 0, 'POINT')}"></td>
+                <td style="text-align:left;" th:text="${receivable.billingPct}"></td>
+                <td style="text-align:right;" th:text="${#numbers.formatCurrency(receivable.revenue)}"></td>
+                <td style="text-align:left;"><a th:href th:onclick="${'getPaid(' + receivable.id + '); return false;'}">Mark Paid</a></td>
+            </tr>
+            <tr>
+                <td colspan="8" style="text-align:right">&nbsp;</td>
+                <td style="text-align:right">
+                    <b id="outstanding" th:text="${#numbers.formatCurrency(#aggregates.sum(receivables.![revenue]))}"></b>
+                </td>
+                <td style="text-align:right">&nbsp;</td>
             </tr>
             </tbody>
         </table>

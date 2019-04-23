@@ -48,6 +48,8 @@ function getPaid(appointmentId) {
       .done(function(data) {
         console.log(data);
       });
+
+
 }
 /*
 window.addEventListener("load", function () {
