@@ -152,3 +152,18 @@ function loadMonthlyActivity(sortColumn) {
         $('#monthlyActivity').replaceWith(data);
       });
 }
+
+function loadActivityByYearMonth(yearAndMonth) {
+    var formData = {
+          target: "reports/activity-year-month"
+    }
+
+    let year = yearAndMonth.substring(0, 4);
+    let month = yearAndMonth.substring(5);
+    let url = '/clientbiz-java/reports/activity-year-month'
+    $.ajax({
+        method: 'GET',
+        'url': url,
+        data: formData
+      });
+}

@@ -31,7 +31,7 @@
             </thead>
             <tbody>
             <tr th:each="data: ${reportData}">
-                <td style="align:left;" th:text="${data.monthOfYear}"></td>
+                <td style="align:left;"><a th:href="@{|/reports/activity-year-month/${#strings.substring(data.monthOfYear, 0, 4)}/${#strings.substring(data.monthOfYear, 5, 7)}|}" th:text="${data.monthOfYear}"></a></td>
                 <td style="align:right;" th:text="${data.totalClients}"></td>
                 <td style="align:right;" th:text="${data.totalAppointments}"></td>
                 <td style="align:right;" th:text="${#numbers.formatDecimal(data.totalHours, 1, 2)}"></td>

@@ -253,7 +253,6 @@ public class ClientBizController {
         return s;
     }
 
-
     @GetMapping(value = "/reports/monthly-activity.html")
     public String monthlyActivity(@RequestParam(value="sortColumn", required = false, defaultValue = "monthOfYear") String sortColumn,
                          @RequestParam(value="sortOrder", required = false, defaultValue = "desc") String sortOrder,
@@ -264,6 +263,35 @@ public class ClientBizController {
         model.addAttribute("reportData", reportData);
         model.addAttribute("viewName", "reports/monthly-activity");
         model.addAttribute("fragmentName", "monthly-activity");
+        return target;
+    }
+
+    @GetMapping(value = "/activityByYearMonth/{year}/{month}", produces = "application/json")
+    @ResponseBody
+    public String activityByYearMonth(@PathVariable("year") int year,
+                                      @PathVariable("month") int month) {
+        List<Appointment> reportData = reportService.getActivityByYearMonth(year, month);
+
+        String s = "";
+        try {
+            s = objectMapper.writeValueAsString(reportData);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
+    @GetMapping(value = "/reports/activity-year-month/{year}/{month}")
+    public String monthlyActivity(@PathVariable(value="year") int year,
+                                  @PathVariable(value="month") int month,
+                                  @RequestParam(value="target", required = false, defaultValue = "index") String target,
+                                  Model model) {
+        List<Appointment> reportData = reportService.getActivityByYearMonth(year, month);
+
+        model.addAttribute("reportData", reportData);
+        model.addAttribute("viewName", "reports/activity-year-month");
+        model.addAttribute("fragmentName", "activity-year-month");
         return target;
     }
 

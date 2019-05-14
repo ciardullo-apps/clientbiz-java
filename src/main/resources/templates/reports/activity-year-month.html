@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="activity-year-month">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Activity</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                Recent
+            </button>
+        </div>
+    </div>
+    <div id="activityYearMonth" class="table-responsive">
+        <table id="activityYearMonthDetailTable" class="table table-sm">
+            <thead>
+            <tr>
+                <th style="align=center;">Appointment ID</th>
+                <th style="align=center;">Client First</th>
+                <th style="align=center;">Client Last</th>
+                <th style="align=center;">Topic</th>
+                <th style="align=center;">Start time</th>
+                <th style="align=center;">Duration</th>
+                <th style="align=center;">Hourly Rate</th>
+                <th style="align=center;">Billing %</th>
+                <th style="align=center;">Amount Due</th>
+                <th style="align=center;">Paid</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="8" style="text-align:right">&nbsp;</td>
+                <td style="text-align:right">
+                    <b id="outstanding" th:text="${#numbers.formatCurrency(#aggregates.sum(reportData.![revenue]))}"></b>
+                </td>
+                <td style="text-align:right">&nbsp;</td>
+            </tr>
+            <tr th:each="data : ${reportData}">
+                <td style="text-align:left;" th:text="${data.id}"></td>
+                <td style="text-align:left;" th:text="${data.clientele.firstName}"></td>
+                <td style="text-align:left;" th:text="${data.clientele.lastName}"></td>
+                <td style="text-align:left;" th:text="${data.topic.name}"></td>
+                <td style="text-align:left;" th:text="${#dates.format(data.startTime, 'MM/dd/yyyy, hh:mm:ss a')}"></td>
+                <td style="text-align:left;" th:text="${data.duration}"></td>
+                <td style="text-align:left;" th:text="${#numbers.formatDecimal(data.rate, 0, 'COMMA', 0, 'POINT')}"></td>
+                <td style="text-align:left;" th:text="${data.billingPct}"></td>
+                <td style="text-align:right;" th:text="${#numbers.formatCurrency(data.revenue)}"></td>
+                <td style="text-align:left;" th:text="${#dates.format(data.paid, 'MM/dd/yyyy')}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</body>
+</html>

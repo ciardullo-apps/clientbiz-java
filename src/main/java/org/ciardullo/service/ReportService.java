@@ -1,6 +1,7 @@
 package org.ciardullo.service;
 
 import org.ciardullo.data.mapper.ReportMapper;
+import org.ciardullo.model.Appointment;
 import org.ciardullo.model.reports.MonthlyActivity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,4 +17,7 @@ public class ReportService {
         return reportMapper.findMonthlyActivity(sortColumn, sortOrder);
     }
 
+    public List<Appointment> getActivityByYearMonth(int year, int month) {
+        return reportMapper.findAppointmentsByYearMonth(year, month);
+    }
 }
