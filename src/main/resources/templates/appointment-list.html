@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="appointment-list">
+<div th:fragment="appointment-list">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
     <h1 class="h2" th:text="${client.firstName} + ' ' + ${client.lastName} + ' Appointment History'"</h1>
     <div class="btn-toolbar mb-2 mb-md-0">

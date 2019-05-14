@@ -84,9 +84,9 @@
                 </h6>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" th:href="@{/reports/monthly-activity.html}">
                             <span data-feather="file-text"></span>
-                            Current month
+                            Monthly Activity
                         </a>
                     </li>
                     <li class="nav-item">
@@ -111,7 +111,7 @@
             </div>
         </nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div th:include="${viewName} :: ${viewName}">
+            <div th:insert="${viewName} :: ${fragmentName}">
             </div>
 
             <canvas class="my-4" id="myChart" width="900" height="380"></canvas>

@@ -6,7 +6,9 @@ import org.ciardullo.model.Appointment;
 import org.ciardullo.model.Clientele;
 import org.ciardullo.model.Topic;
 import org.ciardullo.model.View;
+import org.ciardullo.model.reports.MonthlyActivity;
 import org.ciardullo.service.ClientBizService;
+import org.ciardullo.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,9 @@ public class ClientBizController {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @Autowired
+    ReportService reportService;
 
     @GetMapping(value = "/client", produces = "application/json")
     @ResponseBody
@@ -49,9 +54,6 @@ public class ClientBizController {
                          @RequestParam(value="target", required = false, defaultValue = "index") String target,
                          Model model) {
         List<Clientele> clients = clientService.getClients(sortColumn, sortOrder);
-        for (Clientele client : clients) {
-            System.out.println(client.getId());
-        }
 
         model.addAttribute("clients", clients);
         model.addAttribute("viewName", "client-list");
@@ -234,6 +236,35 @@ public class ClientBizController {
 
         String s = String.format("{ \"%s\": \"%d\" }", "updatedClientId", appointment.getId());
         return s;
+    }
+
+    @GetMapping(value = "/monthlyActivity", produces = "application/json")
+    @ResponseBody
+    public String monthlyActivity() {
+        List<MonthlyActivity> reportData = reportService.getMonthlyActivity("monthOfYear", "asc");
+
+        String s = "";
+        try {
+            s = objectMapper.writeValueAsString(reportData);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
+
+    @GetMapping(value = "/reports/monthly-activity.html")
+    public String monthlyActivity(@RequestParam(value="sortColumn", required = false, defaultValue = "monthOfYear") String sortColumn,
+                         @RequestParam(value="sortOrder", required = false, defaultValue = "desc") String sortOrder,
+                         @RequestParam(value="target", required = false, defaultValue = "index") String target,
+                         Model model) {
+        List<MonthlyActivity> reportData = reportService.getMonthlyActivity(sortColumn, sortOrder);
+
+        model.addAttribute("reportData", reportData);
+        model.addAttribute("viewName", "reports/monthly-activity");
+        model.addAttribute("fragmentName", "monthly-activity");
+        return target;
     }
 
     private Date getNextHour() {

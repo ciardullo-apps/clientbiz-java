@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="monthly-activity">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Monthly Activity</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                Recent
+            </button>
+        </div>
+    </div>
+
+    <div id="monthlyActivity" class="table-responsive" th:fragment="monthly-activity-internal">
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th><a th:href th:onclick="${'loadMonthlyActivity(''monthOfYear''); return false;'}">Month / Year</a></th>
+                <th><a th:href th:onclick="${'loadMonthlyActivity(''totalClients''); return false;'}">Clients</a></th>
+                <th><a th:href th:onclick="${'loadMonthlyActivity(''totalAppointments''); return false;'}">Appointments</a></th>
+                <th><a th:href th:onclick="${'loadMonthlyActivity(''totalHours''); return false;'}">Hours</a></th>
+                <th><a th:href th:onclick="${'loadMonthlyActivity(''totalRevenue''); return false;'}">Revenue</a></th>
+                <th><a th:href th:onclick="${'loadMonthlyActivity(''averageRate''); return false;'}">Avg Rate</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="data: ${reportData}">
+                <td style="align:left;" th:text="${data.monthOfYear}"></td>
+                <td style="align:right;" th:text="${data.totalClients}"></td>
+                <td style="align:right;" th:text="${data.totalAppointments}"></td>
+                <td style="align:right;" th:text="${#numbers.formatDecimal(data.totalHours, 1, 2)}"></td>
+                <td style="align:right;" th:text="${#numbers.formatCurrency(data.totalRevenue)}"></td>
+                <td style="align:right;" th:text="${#numbers.formatCurrency(data.averageRate)}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

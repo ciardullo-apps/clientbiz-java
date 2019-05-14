@@ -136,3 +136,19 @@ function saveAppointment() {
 
 }
 
+function loadMonthlyActivity(sortColumn) {
+    var formData = {
+          sortColumn: sortColumn,
+          sortOrder: sortOrders[(sortOrderIndex ^= 1)],
+          target: "reports/monthly-activity :: monthly-activity-internal"
+    }
+
+    $.ajax({
+        method: 'GET',
+        url: '/clientbiz-java/reports/monthly-activity.html',
+        data: formData
+      })
+      .done(function(data) {
+        $('#monthlyActivity').replaceWith(data);
+      });
+}

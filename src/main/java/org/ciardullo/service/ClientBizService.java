@@ -1,13 +1,11 @@
 package org.ciardullo.service;
 
 import org.apache.ibatis.exceptions.TooManyResultsException;
-import org.ciardullo.data.mapper.AppointmentMapper;
-import org.ciardullo.data.mapper.ClientTopicMapper;
-import org.ciardullo.data.mapper.ClienteleMapper;
-import org.ciardullo.data.mapper.TopicMapper;
+import org.ciardullo.data.mapper.*;
 import org.ciardullo.model.Appointment;
 import org.ciardullo.model.Clientele;
 import org.ciardullo.model.Topic;
+import org.ciardullo.model.reports.MonthlyActivity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
