@@ -7,6 +7,7 @@ import org.ciardullo.model.Clientele;
 import org.ciardullo.model.Topic;
 import org.ciardullo.model.View;
 import org.ciardullo.model.reports.MonthlyActivity;
+import org.ciardullo.model.reports.RevenueByTopic;
 import org.ciardullo.service.ClientBizService;
 import org.ciardullo.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -295,6 +297,38 @@ public class ClientBizController {
         return target;
     }
 
+    @GetMapping(value = "/revenueByTopic", produces = "application/json")
+    @ResponseBody
+    public String revenueByTopic() {
+        List<RevenueByTopic> graphData = reportService.getRevenueByToic();
+
+        String s = "";
+        try {
+            s = objectMapper.writeValueAsString(graphData);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
+    @GetMapping(value = "/graphs/revenue-by-topic.html")
+    public String reventByTopic(@RequestParam(value="target", required = false, defaultValue = "index") String target,
+                                Model model) {
+        List<RevenueByTopic> graphData = reportService.getRevenueByToic();
+        List<String> labels = new ArrayList<>();
+        List<Double> values = new ArrayList<>();
+        for(RevenueByTopic rbt : graphData) {
+            labels.add("'" + rbt.getTopicName() + "'");
+            values.add(rbt.getPctOfTotal());
+        }
+        model.addAttribute("labels", labels);
+        model.addAttribute("data", values);
+        model.addAttribute("viewName", "graph");
+        model.addAttribute("fragmentName", "graph");
+        return target;
+
+    }
     private Date getNextHour() {
         LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault()).withMinute(0).withSecond(0).withNano(0).plusHours(1);
         return Date.from(now.atZone(ZoneId.systemDefault()).toInstant());

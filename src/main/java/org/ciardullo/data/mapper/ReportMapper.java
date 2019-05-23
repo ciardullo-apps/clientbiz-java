@@ -6,6 +6,7 @@ import org.ciardullo.model.Appointment;
 import org.ciardullo.model.Clientele;
 import org.ciardullo.model.Topic;
 import org.ciardullo.model.reports.MonthlyActivity;
+import org.ciardullo.model.reports.RevenueByTopic;
 
 import java.util.List;
 
@@ -37,4 +38,9 @@ public interface ReportMapper {
 
     })
     List<Appointment> findAppointmentsByYearMonth(@Param("year") int year, @Param("month") int month);
+
+    @Select("select name as topicName, sum(rate * (duration / 60) * billingpct) as totalRevenue, convert(sum(rate * (duration / 60) * billingpct) / sum(sum(rate * (duration / 60) * billingpct)) over () * 100, decimal(9,2)) as pctOfTotal\n" +
+            "from appointment a join topic t on a.topic_id = t.id\n" +
+            "group by t.name;\n")
+    List<RevenueByTopic> findRevenueByTopic();
 }
