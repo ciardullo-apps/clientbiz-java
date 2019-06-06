@@ -53,6 +53,6 @@ public interface AppointmentMapper {
 
     @Insert("INSERT INTO appointment (client_id, topic_id, starttime, duration, rate, billingpct, description) " +
             "VALUES (#{clientId}, #{topicId}, #{startTime}, #{duration}, #{rate}, #{billingPct}, #{description}) ")
-    @Options(useGeneratedKeys=true)
+    @Options(useGeneratedKeys=true, keyColumn = "id", keyProperty = "id")
     int insertAppointment(Appointment appointment);   // mybatis returns number of rows inserted, NOT the id
 }

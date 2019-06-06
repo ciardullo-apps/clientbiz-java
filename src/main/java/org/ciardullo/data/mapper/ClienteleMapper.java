@@ -13,7 +13,7 @@ public interface ClienteleMapper {
 
     @Insert("INSERT INTO clientele (firstname, lastname, contactname, city, state, timezone, firstcontact, firstresponse, solicited) " +
             "VALUES (#{firstName}, #{lastName}, #{contactName}, #{city}, #{state}, #{timezone}, #{firstContact}, #{firstResponse}, #{solicited}) ")
-    @Options(useGeneratedKeys=true)
+    @Options(useGeneratedKeys=true, keyColumn = "id", keyProperty = "id")
     int insertClientele(Clientele clientele);   // mybatis returns number of rows inserted, NOT the id
 
     @Update("UPDATE clientele SET firstname = #{firstName}, lastName = #{lastName}, contactname = #{contactName}, city = #{city}, state = #{state}, " +
