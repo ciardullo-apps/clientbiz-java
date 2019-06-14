@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class ClientBizController {
@@ -297,14 +294,24 @@ public class ClientBizController {
         return target;
     }
 
-    @GetMapping(value = "/revenueByTopic", produces = "application/json")
+    @GetMapping(value = "/revenueByTopic/{year}", produces = "application/json")
     @ResponseBody
-    public String revenueByTopic() {
-        List<RevenueByTopic> graphData = reportService.getRevenueByToic();
+    public String revenueByTopic(@PathVariable(value="year") int year) {
+        List<RevenueByTopic> graphData = reportService.getRevenueByTopic(year);
+        Map<String, List> jsonMap = new HashMap<>();
+        List<String> labels = new ArrayList<>();
+        List<Double> values = new ArrayList<>();
+        for(RevenueByTopic rbt : graphData) {
+            labels.add(rbt.getTopicName());
+            values.add(rbt.getPctOfTotal());
+        }
+        jsonMap.put("labels", labels);
+        jsonMap.put("data", values);
+
 
         String s = "";
         try {
-            s = objectMapper.writeValueAsString(graphData);
+            s = objectMapper.writeValueAsString(jsonMap);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -313,22 +320,25 @@ public class ClientBizController {
     }
 
     @GetMapping(value = "/graphs/revenue-by-topic.html")
-    public String reventByTopic(@RequestParam(value="target", required = false, defaultValue = "index") String target,
-                                Model model) {
-        List<RevenueByTopic> graphData = reportService.getRevenueByToic();
+    public String revenueByTopic(@RequestParam(value="target", required = false, defaultValue = "index") String target,
+                                 Model model) {
+        List<RevenueByTopic> graphData = reportService.getRevenueByTopic();
         List<String> labels = new ArrayList<>();
         List<Double> values = new ArrayList<>();
         for(RevenueByTopic rbt : graphData) {
             labels.add("'" + rbt.getTopicName() + "'");
             values.add(rbt.getPctOfTotal());
         }
+        List<Integer> yearsWithRevenue = reportService.getYearsWithRevenue();
         model.addAttribute("labels", labels);
         model.addAttribute("data", values);
         model.addAttribute("viewName", "graph");
         model.addAttribute("fragmentName", "graph");
+        model.addAttribute("yearsWithRevenue", yearsWithRevenue);
         return target;
 
     }
+
     private Date getNextHour() {
         LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault()).withMinute(0).withSecond(0).withNano(0).plusHours(1);
         return Date.from(now.atZone(ZoneId.systemDefault()).toInstant());

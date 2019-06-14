@@ -22,7 +22,15 @@ public class ReportService {
         return reportMapper.findAppointmentsByYearMonth(year, month);
     }
 
-    public List<RevenueByTopic> getRevenueByToic() {
+    public List<RevenueByTopic> getRevenueByTopic() {
         return reportMapper.findRevenueByTopic();
+    }
+
+    public List<RevenueByTopic> getRevenueByTopic(int year) {
+        return reportMapper.findRevenueByTopicAndYear(year);
+    }
+
+    public List<Integer> getYearsWithRevenue() {
+        return reportMapper.findYearsWithRevenue();
     }
 }

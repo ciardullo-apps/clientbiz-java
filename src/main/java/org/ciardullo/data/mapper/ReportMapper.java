@@ -43,4 +43,13 @@ public interface ReportMapper {
             "from appointment a join topic t on a.topic_id = t.id\n" +
             "group by t.name;\n")
     List<RevenueByTopic> findRevenueByTopic();
+
+    @Select("select name as topicName, sum(rate * (duration / 60) * billingpct) as totalRevenue, convert(sum(rate * (duration / 60) * billingpct) / sum(sum(rate * (duration / 60) * billingpct)) over () * 100, decimal(9,2)) as pctOfTotal\n" +
+            "from appointment a join topic t on a.topic_id = t.id\n" +
+            "where YEAR(starttime) = #{year}\n" +
+            "group by t.name;\n")
+    List<RevenueByTopic> findRevenueByTopicAndYear(@Param("year") int year);
+
+    @Select("SELECT DISTINCT YEAR(starttime) FROM appointment ORDER BY 1")
+    List<Integer> findYearsWithRevenue();
 }

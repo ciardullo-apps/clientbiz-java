@@ -17,11 +17,16 @@
         </div>
     </div>
 
+    <a class="btn btn-primary ml-2" th:href="@{/graphs/revenue-by-topic.html}" role="button">All</a>
+    <a th:each="yearWithRevenue: ${yearsWithRevenue}" class="btn btn-primary ml-2" th:onclick="'loadRevenueByTopicYear(' + ${yearWithRevenue} + ')'" role="button">
+        <span th:text="${yearWithRevenue}"></span>
+    </a>
+
     <div style="width:800px;height:500px">
-            <canvas id="myChart" style="width:600px;height:600px"></canvas>
+            <canvas id="myChart"></canvas>
             <script type="text/javascript">
                 let ctx = document.getElementById('myChart').getContext('2d');
-                let myChart = new Chart(ctx, {
+                var myChart = new Chart(ctx, {
                     type: 'pie',
                     data: {
                         labels: [(${labels})],
@@ -31,7 +36,7 @@
                         }]
                     },
                     options: {
-                        responsive: false,
+                        responsive: true,
                         legend: {
                             display: true,
                             position: 'left'

@@ -153,18 +153,34 @@ function loadMonthlyActivity(sortColumn) {
       });
 }
 
-function loadActivityByYearMonth(yearAndMonth) {
-    var formData = {
-          target: "reports/activity-year-month"
-    }
-
-    let year = yearAndMonth.substring(0, 4);
-    let month = yearAndMonth.substring(5);
-    let url = '/clientbiz-java/reports/activity-year-month'
+function loadRevenueByTopicYear(year) {
+    let url = '/clientbiz-java/revenueByTopic/' + year
     $.ajax({
         method: 'GET',
-        'url': url,
-        data: formData
+        'url': url
+      })
+      .done(function(responseData) {
+        let ctx = document.getElementById('myChart').getContext('2d');
+        myChart.destroy();
+        myChart = new Chart(ctx, {
+            'type': 'pie',
+            'data': {
+                'labels': responseData.labels,
+                'datasets': [{
+                    'label': 'Revenue by Topic',
+                    'data': responseData.data
+                }]
+            },
+            'options': {
+                'responsive': true,
+                'legend': {
+                    'display': true,
+                    'position': 'left'
+                }
+            }
+        });
+        myChart.update();
+
       });
 }
 
