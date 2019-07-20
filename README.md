@@ -7,3 +7,5 @@ A simple time-based client billing app for service professionals built using Jav
 ### Handling dates between MySQL, Spring and HTML 5
 
 Unlike with node.js, datetimes require no attention in Spring 5 when using MyBatis.
+
+fin
