@@ -1,6 +1,7 @@
 package org.ciardullo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
@@ -176,6 +177,11 @@ public class Clientele {
 
     public void setTopicId(int topicId) {
         this.topicId = topicId;
+    }
+
+    @JsonIgnore
+    public String getDisplayName() {
+        return String.format("%s %s", getFirstName(), getLastName());
     }
 
     @Override

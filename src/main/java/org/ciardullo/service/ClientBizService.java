@@ -32,7 +32,7 @@ public class ClientBizService {
     PlatformTransactionManager platformTransactionManager;
 
     public List<Clientele> getClients() {
-        return clienteleMapper.getClients("id", "asc");
+        return clienteleMapper.getClients("lastApptDate", "desc");
     }
 
     public List<Clientele> getClients(String sortColumn, String sortOrder) {
