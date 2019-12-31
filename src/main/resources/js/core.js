@@ -131,7 +131,13 @@ function saveAppointment() {
         processData: false
       })
       .done(function(data) {
+        $('#message').text(`Appointment ID ${data.appointmentId} has been created`);
+//        document.querySelector("#message").innerHTML= `Appointment ID ${data.appointmentId} has been created`;
         console.log(data);
+      })
+      .fail(function(data) {
+        console.log(data.responseText);
+        $('#message').text(`Error: ${data.responseText}`);
       });
 
 }

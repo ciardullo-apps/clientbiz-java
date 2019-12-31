@@ -11,10 +11,14 @@ import org.ciardullo.model.reports.RevenueByTopic;
 import org.ciardullo.service.ClientBizService;
 import org.ciardullo.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -224,17 +228,30 @@ public class ClientBizController {
 
     @PostMapping(path = "/saveAppointment", consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public String saveAppointment(@RequestBody Appointment appointment) {
+    public ResponseEntity<String> saveAppointment(
+            @Valid @RequestBody Appointment appointment,
+            Errors errors) {
+
+        if(errors.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(errors.getAllErrors().get(0).getDefaultMessage());
+        }
+
         // After MySQL 8.0.15 update, seeing empty string instead of null in description column
         if(appointment.getDescription() != null && appointment.getDescription().trim().equals("")) {
             appointment.setDescription(null);
         }
 
         System.out.println(appointment);
-        clientService.insertAppointment(appointment);
-
-        String s = String.format("{ \"%s\": \"%d\" }", "updatedClientId", appointment.getId());
-        return s;
+        ResponseEntity<String> re = null;
+        try {
+            clientService.insertAppointment(appointment);
+            String s = String.format("{ \"%s\": \"%d\" }", "appointmentId", appointment.getId());
+            re = ResponseEntity.status(HttpStatus.OK).body(s);
+        } catch(Exception e) {
+            re = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return re;
     }
 
     @GetMapping(value = "/monthlyActivity", produces = "application/json")
