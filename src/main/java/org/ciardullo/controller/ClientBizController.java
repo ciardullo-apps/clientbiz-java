@@ -188,7 +188,13 @@ public class ClientBizController {
 
     @PostMapping(path = "/saveClient", consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public String saveClient(@RequestBody Clientele client) {
+    public ResponseEntity<String> saveClient(@Valid @RequestBody Clientele client,
+                             Errors errors) {
+        if(errors.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(errors.getAllErrors().get(0).getDefaultMessage());
+        }
+
         System.out.println(client);
         if (client.getId() > 0) {
             clientService.updateClient(client);
@@ -197,7 +203,7 @@ public class ClientBizController {
         }
 
         String s = String.format("{ \"%s\": \"%d\" }", "updatedClientId", client.getId());
-        return s;
+        return ResponseEntity.ok(s);
     }
 
     @PostMapping(path = "/updatePaidDate", consumes = "application/json", produces = "application/json")

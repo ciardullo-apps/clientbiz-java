@@ -26,7 +26,12 @@ function saveClient() {
         processData: false
       })
       .done(function(data) {
+        $('#message').text(`Client ID ${data.updatedClientId} has been created`);
         console.log(data);
+      })
+      .fail(function(data) {
+        console.log(data.responseText);
+        $('#message').text(`Error: ${data.responseText}`);
       });
 
 }

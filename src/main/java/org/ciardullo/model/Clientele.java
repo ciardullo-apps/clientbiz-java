@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -14,25 +16,31 @@ import java.util.Objects;
 public class Clientele {
     private int id;
 
+    @NotBlank(message="First name is required")
     @JsonProperty("firstname")
     private String firstName;
 
+    @NotBlank(message="Last name is required")
     @JsonProperty("lastname")
     private String lastName;
 
     @JsonProperty("contactname")
     private String contactName;
 
+    @NotBlank(message="City name is required")
     private String city;
 
+    @NotBlank(message="State is required")
     private String state;
 
+    @NotBlank(message="Timezone is required")
     private String timezone;
 
     @JsonProperty("firstcontact")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone="US/Eastern")
     private Date firstContact;
 
+    @NotNull(message="First response date time is required")
     @JsonProperty("firstresponse")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone="US/Eastern")
     private Date firstResponse;
