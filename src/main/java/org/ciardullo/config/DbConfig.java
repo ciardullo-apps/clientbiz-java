@@ -36,6 +36,7 @@ public class DbConfig {
         // MySQL 8 default character set is UTF-8
         connProps.setProperty("useUnicode", env.getProperty("db.useUnicode"));
         connProps.setProperty("characterEncoding", env.getProperty("db.characterEncoding"));
+        connProps.setProperty("serverTimezone", env.getProperty("db.serverTimezone"));
         dataSource.setConnectionProperties(connProps);
 
         dataSource.setDriverClassName(env.getProperty("db.driverClassName"));
